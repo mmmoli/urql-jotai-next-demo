@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
-  "npmScope": "urql-jotai-next-demo",
+  "npmScope": "mmmoli",
   "tasksRunnerOptions": {
     "default": {
       "runner": "nx/tasks-runners/default",
