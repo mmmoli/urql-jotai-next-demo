@@ -14,7 +14,9 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@mmmoli/shared/data": ["libs/shared/data/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
