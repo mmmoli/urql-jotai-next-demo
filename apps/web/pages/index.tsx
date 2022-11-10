@@ -1,7 +1,7 @@
 import { NextPage } from 'next';
 
 export const IndexPage: NextPage = () => {
-  return <div>Index Page</div>;
+  return <div className="font-mono">Index Page</div>;
 };
 
 export default IndexPage;
