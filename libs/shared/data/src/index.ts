@@ -1,3 +1,4 @@
+export * from './lib/project-list/project-list';
 export * from './lib/auth/auth';
 export * from './lib/detail-view/detail-view';
 export * from './lib/provider/provider';

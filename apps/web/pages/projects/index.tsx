@@ -1,16 +1,20 @@
-import { DetailView, nhostSessionAtom } from '@mmmoli/shared/data';
+import { nhostSessionAtom } from '@mmmoli/shared/data';
 import { getNhostSession, NhostSession } from '@nhost/nextjs';
 import { useHydrateAtoms } from 'jotai/utils';
 import { GetServerSideProps } from 'next';
 import { InferGetServerSidePropsType } from 'next';
 
-type IndexPageProps = InferGetServerSidePropsType<typeof getServerSideProps>;
+type ProjectPageProps = InferGetServerSidePropsType<typeof getServerSideProps>;
 
-export default function IndexPage({ nhostSession }: IndexPageProps) {
-  useHydrateAtoms([[nhostSessionAtom, nhostSession]]);
+export default function ProjectPage({ nhostSession }: ProjectPageProps) {
+  useHydrateAtoms([
+    [nhostSessionAtom, nhostSession],
+    // [projectIdAtom, params.projectId],
+  ]);
+
   return (
     <>
-      <DetailView />
+      <h1>Projects</h1>
     </>
   );
 }
@@ -21,9 +25,14 @@ type ServersideProps = {
   nhostSession: NhostSession;
 };
 
-export const getServerSideProps: GetServerSideProps<ServersideProps> = async (
-  context
-) => {
+type Params = {
+  projectId: string;
+};
+
+export const getServerSideProps: GetServerSideProps<
+  ServersideProps,
+  Params
+> = async (context) => {
   const nhostSession = await getNhostSession(BACKEND_URL, context);
   return {
     props: {
