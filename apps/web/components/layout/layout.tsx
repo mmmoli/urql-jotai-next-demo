@@ -29,6 +29,11 @@ export const Layout: FC<LayoutProps> = ({ children }) => {
                 Projects
               </Link>
             </li>
+            <li>
+              <Link href="/projects/12" shallow>
+                Project: 12
+              </Link>
+            </li>
           </ul>
         </nav>
         <hr />

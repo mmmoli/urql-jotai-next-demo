@@ -1,5 +1,6 @@
 import { DetailView, nhostSessionAtom } from '@mmmoli/shared/data';
 import { getNhostSession, NhostSession } from '@nhost/nextjs';
+
 import { useHydrateAtoms } from 'jotai/utils';
 import { GetServerSideProps } from 'next';
 import { InferGetServerSidePropsType } from 'next';
@@ -25,6 +26,7 @@ export const getServerSideProps: GetServerSideProps<ServersideProps> = async (
   context
 ) => {
   const nhostSession = await getNhostSession(BACKEND_URL, context);
+
   return {
     props: {
       nhostSession,

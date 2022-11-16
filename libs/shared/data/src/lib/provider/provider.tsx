@@ -1,6 +1,10 @@
+import { QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { queryClientAtom } from 'jotai-tanstack-query';
 import { FC, ReactNode } from 'react';
 import { atom, Provider as JotaiProvider, useAtomValue } from 'jotai';
 import { NhostNextProvider, NhostClient, NhostSession } from '@nhost/nextjs';
+import { queryClient } from '../graphql/client';
 
 export const nhost = new NhostClient({
   subdomain: process.env['NX_PUBLIC_NHOST_SUBDOMAIN'] || '',
@@ -25,11 +29,11 @@ export const InnerProvider: FC<ProviderProps> = ({ children }) => {
 
 export const Provider: FC<ProviderProps> = ({ children }) => {
   return (
-    <>
-      provider
-      <JotaiProvider>
+    <QueryClientProvider client={queryClient}>
+      <JotaiProvider initialValues={[[queryClientAtom, queryClient]] as const}>
         <InnerProvider>{children}</InnerProvider>
       </JotaiProvider>
-    </>
+      <ReactQueryDevtools />
+    </QueryClientProvider>
   );
 };

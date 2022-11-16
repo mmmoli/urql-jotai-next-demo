@@ -1,0 +1,7 @@
+query projectList {
+  projects {
+    id
+    name
+    __typename
+  }
+}
