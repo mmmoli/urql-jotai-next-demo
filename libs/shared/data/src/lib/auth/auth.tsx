@@ -1,7 +1,7 @@
 import { atom, useAtomValue } from 'jotai';
 import { atomWithReset, RESET, useUpdateAtom } from 'jotai/utils';
 import { useCallback } from 'react';
-import { nhostClientAtom, nhostSessionAtom } from '../provider/provider';
+import { nhostClientAtom, nhostSessionAtom } from '../provider/nhost';
 
 /* eslint-disable-next-line */
 export interface AuthProps {}

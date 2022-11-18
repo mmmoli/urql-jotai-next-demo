@@ -1,18 +1,23 @@
 import {
-  fetchProjects,
-  nhostSessionAtom,
+  getSsrUrqlClient,
   ProjectList,
+  withAuthUrqlClient,
 } from '@mmmoli/shared/data';
-import { getNhostSession, NhostSession } from '@nhost/nextjs';
-import { dehydrate, DehydratedState, QueryClient } from '@tanstack/query-core';
-import { useHydrateAtoms } from 'jotai/utils';
 import { GetServerSideProps } from 'next';
 import { InferGetServerSidePropsType } from 'next';
+import {
+  ProjectListDocument,
+  ProjectListQuery,
+  ProjectListQueryVariables,
+} from 'libs/shared/data/src/lib/gql/graphql';
+import { getNhostSession } from '@nhost/nextjs';
 
-type ProjectPageProps = InferGetServerSidePropsType<typeof getServerSideProps>;
+type ProjectListPageProps = InferGetServerSidePropsType<
+  typeof getServerSideProps
+>;
 
-export default function ProjectPage({ nhostSession }: ProjectPageProps) {
-  useHydrateAtoms([[nhostSessionAtom, nhostSession]]);
+function ProjectListPage({}: ProjectListPageProps) {
+  // useHydrateAtoms([[nhostSessionAtom, nhostSession]]);
 
   return (
     <>
@@ -22,36 +27,38 @@ export default function ProjectPage({ nhostSession }: ProjectPageProps) {
   );
 }
 
-const BACKEND_URL = 'https://nxlppvxwouvddpyfntil.nhost.run/';
-
 type ServersideProps = {
-  nhostSession: NhostSession;
-  dehydratedState: DehydratedState;
+  dehydratedState?: unknown;
 };
 
 type Params = {
   projectId: string;
 };
 
+const BACKEND_URL = 'https://nxlppvxwouvddpyfntil.nhost.run/';
+
 export const getServerSideProps: GetServerSideProps<
   ServersideProps,
   Params
 > = async (context) => {
+  // TODO: Get BACKEND_URL from somewhere else…
   const nhostSession = await getNhostSession(BACKEND_URL, context);
-  const queryClient = new QueryClient();
+  if (!nhostSession) return { props: {} };
 
-  if (nhostSession) {
-    // await queryClient.prefetchQuery(['appProjectsAtom'], () =>
-    //   fetchProjects({
-    //     accessToken: nhostSession.accessToken,
-    //   })
-    // );
-  }
+  const { client, ssrCache } = getSsrUrqlClient(nhostSession);
+
+  await client
+    .query<ProjectListQuery, ProjectListQueryVariables>(
+      ProjectListDocument,
+      undefined
+    )
+    .toPromise();
 
   return {
     props: {
-      nhostSession,
-      dehydratedState: dehydrate(queryClient),
+      dehydratedState: ssrCache.extractData(),
     },
   };
 };
+
+export default withAuthUrqlClient(ProjectListPage);
