@@ -1,29 +1,19 @@
-import { Provider as UrqlProvider } from 'urql';
 import { FC, ReactNode } from 'react';
-import { Provider as JotaiProvider, useAtomValue } from 'jotai';
-import { NhostNextProvider } from '@nhost/nextjs';
-import { nhost, nhostSessionAtom } from './nhost';
-import { urqlClientAtom } from '../urql';
+import { Provider as JotaiProvider } from 'jotai';
+import { NhostNextProvider, NhostSession } from '@nhost/nextjs';
+import { nhost } from './nhost';
 
 export type ProviderProps = {
   children: ReactNode;
+  nhostSession?: NhostSession;
 };
 
-export const InnerProvider: FC<ProviderProps> = ({ children }) => {
-  const nhostSession = useAtomValue(nhostSessionAtom);
-  const urql = useAtomValue(urqlClientAtom);
-
-  return (
-    <NhostNextProvider nhost={nhost} initial={nhostSession}>
-      {urql ? <UrqlProvider value={urql}>{children}</UrqlProvider> : children}
-    </NhostNextProvider>
-  );
-};
-
-export const Provider: FC<ProviderProps> = ({ children }) => {
+export const Provider: FC<ProviderProps> = ({ children, nhostSession }) => {
   return (
     <JotaiProvider>
-      <InnerProvider>{children}</InnerProvider>
+      <NhostNextProvider nhost={nhost} initial={nhostSession}>
+        {children}
+      </NhostNextProvider>
     </JotaiProvider>
   );
 };

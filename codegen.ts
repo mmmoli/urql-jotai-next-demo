@@ -13,9 +13,6 @@ const config: CodegenConfig = {
       preset: 'client',
       plugins: [],
     },
-    'libs/shared/data/src/lib/gql/schema.ts': {
-      plugins: ['urql-introspection'],
-    },
   },
 };
 

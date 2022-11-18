@@ -1,11 +1,17 @@
-import { AppProps } from 'next/app';
+import type { AppProps } from 'next/app';
 import Head from 'next/head';
-import Layout from '../components/layout/layout';
+import { Provider } from '@mmmoli/shared/data';
 import '../styles.css';
+import { NhostSession } from '@nhost/nextjs';
 
-function CustomApp({ Component, pageProps }: AppProps) {
+type PageProps = {
+  nhostSession?: NhostSession;
+};
+
+export default function MyApp({ Component, pageProps }: AppProps<PageProps>) {
+  const { nhostSession } = pageProps;
   return (
-    <Layout>
+    <Provider nhostSession={nhostSession}>
       <Head>
         <title>Welcome to web!</title>
       </Head>
@@ -13,8 +19,6 @@ function CustomApp({ Component, pageProps }: AppProps) {
       <main className="app">
         <Component {...pageProps} />
       </main>
-    </Layout>
+    </Provider>
   );
 }
-
-export default CustomApp;

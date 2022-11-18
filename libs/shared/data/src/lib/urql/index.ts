@@ -1,4 +1,3 @@
-export * from './clientOptions';
-// export * from './urql-browser';
-export * from './urqlClients';
+export * from './getUrqlClient';
+export * from './getUrqlClientOptions';
 export * from './withAppUrqlClient';
