@@ -1,6 +1,7 @@
 import { useAtomValue } from 'jotai';
 import { atomsWithQuery } from 'jotai-urql';
 import { loadable } from 'jotai/utils';
+import Link from 'next/link';
 import { FC } from 'react';
 import { ProjectDetailDocument } from '../gql/graphql';
 import { projectIdPromiseAtom } from '../project-list/project-list';
@@ -26,10 +27,21 @@ export const ProjectDetailView: FC = () => {
     return <pre>{JSON.stringify(result.error)}</pre>;
   }
 
+  const project = result.data.project;
+
   return (
     <div>
-      <h1>Project Detail View</h1>
-      <pre>{JSON.stringify(result.data, undefined, 2)}</pre>
+      <div className="text-sm breadcrumbs my-3">
+        <ul>
+          <li>
+            <Link href="../">Projects</Link>
+          </li>
+          <li>{project?.name}</li>
+        </ul>
+      </div>
+      <div className="prose lg:prose-xl">
+        <h1>{project?.name}</h1>
+      </div>
     </div>
   );
 };

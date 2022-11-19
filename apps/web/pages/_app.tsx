@@ -23,7 +23,7 @@ export default function MyApp({ Component, pageProps }: AppProps<PageProps>) {
         <title>Welcome to web!</title>
       </Head>
 
-      <main className="app">
+      <main className="app p-3">
         <Component {...pageProps} />
       </main>
     </Provider>

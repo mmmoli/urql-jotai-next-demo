@@ -26,6 +26,7 @@ export const ProjectListItem: FC<ProjectListItemProps> = ({ id, name }) => {
         pathname: '/projects/[projectId]',
         query: { projectId: id },
       }}
+      className="transition-all block py-4 bg-gradient-to-r from-transparent to-transparent hover:from-primary hover:via-purple-500 hover:to-secondary hover:px-4 hover:text-primary-content rounded-lg text-lg"
     >
       {name}
     </Link>

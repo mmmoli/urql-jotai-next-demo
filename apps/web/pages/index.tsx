@@ -13,7 +13,14 @@ type ProjectListPageProps = InferGetServerSidePropsType<
 const ProjectListPage: NextPage<ProjectListPageProps> = () => {
   return (
     <Layout>
-      <h1>Projects</h1>
+      <div className="text-sm breadcrumbs my-3">
+        <ul>
+          <li>Projects</li>
+        </ul>
+      </div>
+      <div className="prose lg:prose-xl">
+        <h1>Projects</h1>
+      </div>
       <ProjectList />
     </Layout>
   );
