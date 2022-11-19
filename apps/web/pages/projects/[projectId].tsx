@@ -1,13 +1,8 @@
-import {
-  graphQLClient,
-  nhostSessionAtom,
-  projectIdAtom,
-  ProjectList,
-  queryClient,
-} from '@mmmoli/shared/data';
+import { getSSRClient, projectIdAtom, ssrCache } from '@mmmoli/shared/data';
 import { getNhostSession, NhostSession } from '@nhost/nextjs';
+import Layout from '../../components/layout/layout';
 import { useHydrateAtoms } from 'jotai/utils';
-import { ProjectListDocument } from 'libs/shared/data/src/lib/gql/graphql';
+
 import { GetServerSideProps } from 'next';
 import { InferGetServerSidePropsType } from 'next';
 
@@ -16,17 +11,15 @@ type ProjectDetailPageProps = InferGetServerSidePropsType<
 >;
 
 export default function ProjectDetailPage({
-  nhostSession,
   projectId,
 }: ProjectDetailPageProps) {
-  useHydrateAtoms([[nhostSessionAtom, nhostSession]]);
   useHydrateAtoms([[projectIdAtom, projectId]]);
 
   return (
-    <>
+    <Layout>
       <h1>Project Detail</h1>
-      <pre>{JSON.stringify(projectIdAtom)}</pre>
-    </>
+      <pre>{JSON.stringify(projectId)}</pre>
+    </Layout>
   );
 }
 
@@ -46,24 +39,16 @@ export const getServerSideProps: GetServerSideProps<
   Params
 > = async (context) => {
   const nhostSession = await getNhostSession(BACKEND_URL, context);
+
   if (nhostSession) {
-    await Promise.all([
-      queryClient.prefetchQuery(['appProjectsAtom'], () =>
-        graphQLClient.request(ProjectListDocument, undefined, {
-          Authorization: `Bearer ${nhostSession.accessToken}`,
-        })
-      ),
-      queryClient.prefetchQuery(['appProjectsAtom'], () =>
-        graphQLClient.request(ProjectListDocument, undefined, {
-          Authorization: `Bearer ${nhostSession.accessToken}`,
-        })
-      ),
-    ]);
+    const urqlClient = getSSRClient(nhostSession);
+    Promise.all([]);
   }
 
   return {
     props: {
       nhostSession,
+      urqlState: ssrCache.extractData(),
       projectId: context.params.projectId,
     },
   };

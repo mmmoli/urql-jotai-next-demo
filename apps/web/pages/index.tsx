@@ -14,12 +14,11 @@ type ProjectListPageProps = InferGetServerSidePropsType<
   typeof getServerSideProps
 >;
 
-const ProjectListPage: NextPage<ProjectListPageProps> = ({ nhostSession }) => {
+const ProjectListPage: NextPage<ProjectListPageProps> = () => {
   return (
     <Layout>
       <h1>Projects</h1>
       <ProjectList />
-      <pre>{JSON.stringify(nhostSession, undefined, 2)}</pre>
     </Layout>
   );
 };

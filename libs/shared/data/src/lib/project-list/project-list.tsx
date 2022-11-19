@@ -8,6 +8,7 @@ import { urqlClientAtom } from '../urql';
 // import { loadable, useHydrateAtoms } from 'jotai/utils';
 
 import { atomWithUrlParam } from '../utils/atomWithUrlParam';
+import { ProjectListItem } from './project-list-item';
 
 const [projectsListAtom] = atomsWithQuery(
   ProjectListDocument,
@@ -44,7 +45,11 @@ export function ProjectList(props: ProjectListProps) {
       {data ? (
         <ul>
           {data.projects.map((project) => {
-            return <li key={`project-${project.id}`}>{project.name}</li>;
+            return (
+              <li key={`project-${project.id}`}>
+                <ProjectListItem {...project} />
+              </li>
+            );
           })}
         </ul>
       ) : (
