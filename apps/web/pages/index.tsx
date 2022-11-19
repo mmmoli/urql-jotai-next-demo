@@ -1,27 +1,31 @@
 import { getNhostSession, NhostSession } from '@nhost/nextjs';
 import { GetServerSideProps, NextPage } from 'next';
 import { InferGetServerSidePropsType } from 'next';
-import { nhostSessionAtom, ProjectList } from '@mmmoli/shared/data';
+import {
+  ProjectList,
+  ProjectListDocument,
+  ssrCache,
+  urqlClient,
+} from '@mmmoli/shared/data';
 import Layout from '../components/layout/layout';
-import { useHydrateAtoms } from 'jotai/utils';
+import { SSRData } from 'next-urql';
 
 type ProjectListPageProps = InferGetServerSidePropsType<
   typeof getServerSideProps
 >;
 
 const ProjectListPage: NextPage<ProjectListPageProps> = ({ nhostSession }) => {
-  useHydrateAtoms([[nhostSessionAtom, nhostSession]]);
   return (
     <Layout>
       <h1>Projects</h1>
-      {/* <pre>{JSON.stringify(nhostSession, undefined, 2)}</pre> */}
+      <pre>{JSON.stringify(nhostSession, undefined, 2)}</pre>
       <ProjectList />
     </Layout>
   );
 };
 
 type ServersideProps = {
-  // dehydratedState?: SSRData;
+  dehydratedState?: SSRData;
   nhostSession?: NhostSession;
 };
 
@@ -36,8 +40,11 @@ export const getServerSideProps: GetServerSideProps<
   Params
 > = async (context) => {
   const nhostSession = await getNhostSession(BACKEND_URL, context);
-  // const { client, ssrCache } = await getSsrUrqlClient(context);
-  // await client.query(ProjectListDocument, undefined).toPromise();
+
+  // await urqlClient
+  //   .query(ProjectListDocument, undefined)
+  //   .toPromise()
+  //   .catch(console.log);
 
   return {
     props: {

@@ -3,22 +3,17 @@ import { useAtomValue } from 'jotai';
 import { atomsWithQuery } from 'jotai-urql';
 import { loadable } from 'jotai/utils';
 import { ProjectListDocument } from '../gql/graphql';
-import { nhostSessionAtom } from '../provider/nhost';
-import { getBrowserUrqlClient } from '../urql';
+import { getBrowserClient } from '../urql';
+
 // import { loadable, useHydrateAtoms } from 'jotai/utils';
 
 import { atomWithUrlParam } from '../utils/atomWithUrlParam';
-
-const { client } = getBrowserUrqlClient();
 
 const [projectsListAtom] = atomsWithQuery(
   ProjectListDocument,
   () => ({}),
   undefined,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  () => {
-    return client;
-  }
+  getBrowserClient
 );
 
 /* eslint-disable-next-line */
@@ -29,23 +24,22 @@ export const projectIdAtom = atomWithUrlParam({
 });
 
 export function ProjectList(props: ProjectListProps) {
-  const session = useAtomValue(nhostSessionAtom);
   // useHydrateAtoms([[countAtom, countFromServer]]);
-  // const result = useAtomValue(loadable(projectsListAtom));
+  const result = useAtomValue(loadable(projectsListAtom));
 
-  // if (result.state === 'loading') {
-  //   return <div>…</div>;
-  // }
+  if (result.state === 'loading') {
+    return <div>…</div>;
+  }
 
-  // if (result.state === 'hasError') {
-  //   return <pre>{JSON.stringify(result.error)}</pre>;
-  // }
+  if (result.state === 'hasError') {
+    return <pre>{JSON.stringify(result.error)}</pre>;
+  }
 
   return (
     <div className="border-2 m-2 p-2">
       <h1>Projects</h1>
       <h2>Project Id</h2>
-      <pre>{JSON.stringify(session, undefined, 2)}</pre>
+      <pre>{JSON.stringify(result.data)}</pre>
       {/* {data ? (
         <ul>
           {data.projects.map((project) => {

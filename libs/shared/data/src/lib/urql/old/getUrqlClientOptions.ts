@@ -59,12 +59,17 @@ export const getUrqlClientOptions =
         ? [
             authExchange({
               getAuth: async ({ authState }) => {
-                if (accessToken) {
-                  return { token: accessToken };
+                if (!authState) {
+                  if (accessToken) {
+                    return { token: accessToken };
+                  }
+                  const session = nhost.auth.getSession();
+                  if (session) {
+                    const { accessToken, refreshToken } = session;
+                    return { token: accessToken, refreshToken };
+                  }
+                  return null;
                 }
-                // if (!(await nhost.auth.isAuthenticatedAsync())) {
-                //   return { token: nhost.auth.getAccessToken() };
-                // }
                 return null;
               },
               addAuthToOperation,

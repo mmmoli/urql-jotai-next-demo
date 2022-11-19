@@ -1,17 +1,23 @@
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
-import { Provider } from '@mmmoli/shared/data';
-import '../styles.css';
+import { nhostSessionAtom, Provider, ssrCache } from '@mmmoli/shared/data';
+import { SSRData } from 'next-urql';
 import { NhostSession } from '@nhost/nextjs';
+import '../styles.css';
+import { useHydrateAtoms } from 'jotai/utils';
 
 type PageProps = {
   nhostSession?: NhostSession;
+  urqlState?: SSRData;
 };
 
 export default function MyApp({ Component, pageProps }: AppProps<PageProps>) {
-  const { nhostSession } = pageProps;
+  useHydrateAtoms([[nhostSessionAtom, pageProps.nhostSession]]);
+  if (pageProps.urqlState) {
+    ssrCache.restoreData(pageProps.urqlState);
+  }
   return (
-    <Provider nhostSession={nhostSession}>
+    <Provider nhostSession={pageProps.nhostSession}>
       <Head>
         <title>Welcome to web!</title>
       </Head>

@@ -28,6 +28,7 @@ specifiers:
   '@tanstack/react-query-devtools': ^4.16.0
   '@testing-library/react': 13.4.0
   '@types/jest': 28.1.1
+  '@types/lodash-es': ^4.17.6
   '@types/node': 18.7.18
   '@types/react': 18.0.20
   '@types/react-dom': 18.0.6
@@ -52,12 +53,14 @@ specifiers:
   graphql: ^16.6.0
   graphql-request: ^5.0.0
   graphql-ws: ^5.11.2
+  immer: ^9.0.16
   jest: 28.1.1
   jest-environment-jsdom: 28.1.1
   jotai: ^1.9.2
   jotai-location: ^0.1.0
   jotai-tanstack-query: ^0.4.0
   jotai-urql: ^0.3.0
+  lodash-es: ^4.17.21
   next: 13.0.0
   next-urql: ^4.0.0
   nx: 15.0.13
@@ -90,10 +93,12 @@ dependencies:
   graphql: 16.6.0
   graphql-request: 5.0.0_graphql@16.6.0
   graphql-ws: 5.11.2_graphql@16.6.0
-  jotai: 1.9.2_lw7eurvwdfaifq72zmcbqehp6e
+  immer: 9.0.16
+  jotai: 1.9.2_3cl2w5oy7evzriedplg6neyczm
   jotai-location: 0.1.0_jotai@1.9.2+react@18.2.0
   jotai-tanstack-query: 0.4.0_fsjgfd5s45ih6o6o3kregwfv4e
   jotai-urql: 0.3.0_ttgifyb7m23dszuaixncnoleyy
+  lodash-es: 4.17.21
   next: 13.0.0_mqvh5p7ejg4taogoj6tpk3gd5a
   next-urql: 4.0.0_react@18.2.0+urql@3.0.3
   react: 18.2.0
@@ -127,6 +132,7 @@ devDependencies:
   '@tanstack/react-query-devtools': 4.16.0_hozuwxoptd33escfyk6jkb25zm
   '@testing-library/react': 13.4.0_biqbaboplfbrettd7655fr4n2y
   '@types/jest': 28.1.1
+  '@types/lodash-es': 4.17.6
   '@types/node': 18.7.18
   '@types/react': 18.0.20
   '@types/react-dom': 18.0.6
@@ -3987,6 +3993,16 @@ packages:
     resolution: {integrity: sha512-272FMnFGzAVMGtu9tkr29hRL6bZj4Zs1KZNeHLnKqAvp06tAIcarTMwOh8/8bz4FmKRcMxZhZNeUAQsNLoiPhg==}
     dependencies:
       '@types/node': 18.11.9
+    dev: true
+
+  /@types/lodash-es/4.17.6:
+    resolution: {integrity: sha512-R+zTeVUKDdfoRxpAryaQNRKk3105Rrgx2CFRClIgRGaqDTdjsm8h6IYA8ir584W3ePzkZfst5xIgDwYrlh9HLg==}
+    dependencies:
+      '@types/lodash': 4.14.189
+    dev: true
+
+  /@types/lodash/4.14.189:
+    resolution: {integrity: sha512-kb9/98N6X8gyME9Cf7YaqIMvYGnBSWqEci6tiettE6iJWH1XdJz/PO8LB0GtLCG7x8dU3KWhZT+lA1a35127tA==}
     dev: true
 
   /@types/mime/3.0.1:
@@ -8643,7 +8659,7 @@ packages:
       jotai: '*'
       react: '>=17.0.0'
     dependencies:
-      jotai: 1.9.2_lw7eurvwdfaifq72zmcbqehp6e
+      jotai: 1.9.2_3cl2w5oy7evzriedplg6neyczm
       react: 18.2.0
     dev: false
 
@@ -8654,7 +8670,7 @@ packages:
       jotai: '*'
     dependencies:
       '@tanstack/query-core': 4.15.1
-      jotai: 1.9.2_lw7eurvwdfaifq72zmcbqehp6e
+      jotai: 1.9.2_3cl2w5oy7evzriedplg6neyczm
     dev: false
 
   /jotai-urql/0.3.0_ttgifyb7m23dszuaixncnoleyy:
@@ -8664,10 +8680,10 @@ packages:
       jotai: '*'
     dependencies:
       '@urql/core': 3.0.5_graphql@16.6.0
-      jotai: 1.9.2_lw7eurvwdfaifq72zmcbqehp6e
+      jotai: 1.9.2_3cl2w5oy7evzriedplg6neyczm
     dev: false
 
-  /jotai/1.9.2_lw7eurvwdfaifq72zmcbqehp6e:
+  /jotai/1.9.2_3cl2w5oy7evzriedplg6neyczm:
     resolution: {integrity: sha512-/893WrniZwoVc0+3JR056r0FTC/tGbgyHco9dfgde6K8TU6XNxrOSw4jCRdDicncw67A37v2GNGzXSpHKbHPmw==}
     engines: {node: '>=12.7.0'}
     peerDependencies:
@@ -8699,6 +8715,7 @@ packages:
         optional: true
     dependencies:
       '@babel/core': 7.20.2
+      immer: 9.0.16
       jotai-tanstack-query: 0.4.0_fsjgfd5s45ih6o6o3kregwfv4e
       jotai-urql: 0.3.0_ttgifyb7m23dszuaixncnoleyy
       react: 18.2.0
@@ -9050,6 +9067,10 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       p-locate: 5.0.0
+
+  /lodash-es/4.17.21:
+    resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==}
+    dev: false
 
   /lodash.camelcase/4.3.0:
     resolution: {integrity: sha512-TwuEnCnxbc3rAvhf/LbG7tJUDzhqXyFnv3dtzLOPgCG/hODL7WFnsbwktkD7yUV0RrreP/l1PALq/YSg6VvjlA==}
