@@ -23,9 +23,6 @@ specifiers:
   '@nrwl/workspace': 15.0.13
   '@swc/core': ^1.2.173
   '@swc/jest': 0.2.20
-  '@tanstack/query-core': ^4.15.1
-  '@tanstack/react-query': ^4.15.1
-  '@tanstack/react-query-devtools': ^4.16.0
   '@testing-library/react': 13.4.0
   '@types/jest': 28.1.1
   '@types/lodash-es': ^4.17.6
@@ -36,8 +33,6 @@ specifiers:
   '@typescript-eslint/parser': ^5.36.1
   '@urql/core': ^3.0.5
   '@urql/devtools': ^2.0.3
-  '@urql/exchange-auth': ^1.0.0
-  '@urql/exchange-execute': ^2.0.0
   autoprefixer: 10.4.12
   babel-jest: 28.1.1
   core-js: ^3.6.5
@@ -51,14 +46,11 @@ specifiers:
   eslint-plugin-react: 7.31.8
   eslint-plugin-react-hooks: 4.6.0
   graphql: ^16.6.0
-  graphql-request: ^5.0.0
-  graphql-ws: ^5.11.2
   immer: ^9.0.16
   jest: 28.1.1
   jest-environment-jsdom: 28.1.1
   jotai: ^1.9.2
   jotai-location: ^0.1.0
-  jotai-tanstack-query: ^0.4.0
   jotai-urql: ^0.3.0
   lodash-es: ^4.17.21
   next: 13.0.0
@@ -83,20 +75,13 @@ dependencies:
   '@nhost/nextjs': 1.8.1_tk7bxbmq4v6dsyrcengsgjcj34
   '@nhost/react': 0.14.1_5drec4jlqd3xq4e64mecebmo74
   '@nrwl/next': 15.0.13_uycy7esyiv3fujocmqgic7shdy
-  '@tanstack/query-core': 4.15.1
-  '@tanstack/react-query': 4.15.1_biqbaboplfbrettd7655fr4n2y
   '@urql/core': 3.0.5_graphql@16.6.0
   '@urql/devtools': 2.0.3_mfybxqh6aadwsv45w6sdn3i53a
-  '@urql/exchange-auth': 1.0.0_graphql@16.6.0
-  '@urql/exchange-execute': 2.0.0_graphql@16.6.0
   core-js: 3.26.0
   graphql: 16.6.0
-  graphql-request: 5.0.0_graphql@16.6.0
-  graphql-ws: 5.11.2_graphql@16.6.0
   immer: 9.0.16
-  jotai: 1.9.2_3cl2w5oy7evzriedplg6neyczm
+  jotai: 1.9.2_uw5pfemy2xdwo2sp64avz7ue5u
   jotai-location: 0.1.0_jotai@1.9.2+react@18.2.0
-  jotai-tanstack-query: 0.4.0_fsjgfd5s45ih6o6o3kregwfv4e
   jotai-urql: 0.3.0_ttgifyb7m23dszuaixncnoleyy
   lodash-es: 4.17.21
   next: 13.0.0_mqvh5p7ejg4taogoj6tpk3gd5a
@@ -129,7 +114,6 @@ devDependencies:
   '@nrwl/workspace': 15.0.13_2eysjil7f2lu3p2o6ot7hlnina
   '@swc/core': 1.3.14
   '@swc/jest': 0.2.20_@swc+core@1.3.14
-  '@tanstack/react-query-devtools': 4.16.0_hozuwxoptd33escfyk6jkb25zm
   '@testing-library/react': 13.4.0_biqbaboplfbrettd7655fr4n2y
   '@types/jest': 28.1.1
   '@types/lodash-es': 4.17.6
@@ -3748,48 +3732,6 @@ packages:
       '@swc/core': 1.3.14
     dev: true
 
-  /@tanstack/match-sorter-utils/8.1.1:
-    resolution: {integrity: sha512-IdmEekEYxQsoLOR0XQyw3jD1GujBpRRYaGJYQUw1eOT1eUugWxdc7jomh1VQ1EKHcdwDLpLaCz/8y4KraU4T9A==}
-    engines: {node: '>=12'}
-    dependencies:
-      remove-accents: 0.4.2
-    dev: true
-
-  /@tanstack/query-core/4.15.1:
-    resolution: {integrity: sha512-+UfqJsNbPIVo0a9ANW0ZxtjiMfGLaaoIaL9vZeVycvmBuWywJGtSi7fgPVMCPdZQFOzMsaXaOsDtSKQD5xLRVQ==}
-
-  /@tanstack/react-query-devtools/4.16.0_hozuwxoptd33escfyk6jkb25zm:
-    resolution: {integrity: sha512-jspoV3zMbxMyYXCcRWW3IILxUYIUUhAgflGxul+JeNHYOpum7uwUFcvo89Ao0BvWi80y7Z5LS6+cHBQmVenyeQ==}
-    peerDependencies:
-      '@tanstack/react-query': 4.15.1
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0
-      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
-    dependencies:
-      '@tanstack/match-sorter-utils': 8.1.1
-      '@tanstack/react-query': 4.15.1_biqbaboplfbrettd7655fr4n2y
-      react: 18.2.0
-      react-dom: 18.2.0_react@18.2.0
-      superjson: 1.11.0
-      use-sync-external-store: 1.2.0_react@18.2.0
-    dev: true
-
-  /@tanstack/react-query/4.15.1_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-Me6atZD1IzE7fzKdu8AjZPXFTPe83009b46icyfn7UsaOwaFkMqh+aX4/5Te34YVVREFH+Zfe+N2KFFbC/j8hg==}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0
-      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
-      react-native: '*'
-    peerDependenciesMeta:
-      react-dom:
-        optional: true
-      react-native:
-        optional: true
-    dependencies:
-      '@tanstack/query-core': 4.15.1
-      react: 18.2.0
-      react-dom: 18.2.0_react@18.2.0
-      use-sync-external-store: 1.2.0_react@18.2.0
-
   /@testing-library/dom/8.19.0:
     resolution: {integrity: sha512-6YWYPPpxG3e/xOo6HIWwB/58HukkwIVTOaZ0VwdMVjhRUX/01E4FtQbck9GazOOj7MXHc5RBzMrU86iBJHbI+A==}
     engines: {node: '>=12'}
@@ -4266,26 +4208,6 @@ packages:
     peerDependencies:
       '@urql/core': '>= 1.14.0'
       graphql: '>= 0.11.0'
-    dependencies:
-      '@urql/core': 3.0.5_graphql@16.6.0
-      graphql: 16.6.0
-      wonka: 6.1.1
-    dev: false
-
-  /@urql/exchange-auth/1.0.0_graphql@16.6.0:
-    resolution: {integrity: sha512-79hqPQab+ifeINOxvQykvqub4ixWHBEIagN4U67ijcHGMfp3c4yEWRk4IJMPwF+OMT7LrRFuv+jRIZTQn/9VwQ==}
-    peerDependencies:
-      graphql: ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
-    dependencies:
-      '@urql/core': 3.0.5_graphql@16.6.0
-      graphql: 16.6.0
-      wonka: 6.1.1
-    dev: false
-
-  /@urql/exchange-execute/2.0.0_graphql@16.6.0:
-    resolution: {integrity: sha512-cZBFWtbZz/yklsoiTQV8h7SnWKgZT9mPr1KBCHRFmc2FecDUT5IdzV6QCmixBQIg4L3Ogxm0NF3cDoULEg4k0g==}
-    peerDependencies:
-      graphql: ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
     dependencies:
       '@urql/core': 3.0.5_graphql@16.6.0
       graphql: 16.6.0
@@ -5547,13 +5469,6 @@ packages:
   /cookie/0.5.0:
     resolution: {integrity: sha512-YZ3GUyn/o8gfKJlnlX7g7xq4gyO6OSuhGPKaaGssGB2qgDUS0gPgtTvoyZLTt9Ab6dC4hfc9dV5arkvc/OCmrw==}
     engines: {node: '>= 0.6'}
-
-  /copy-anything/3.0.2:
-    resolution: {integrity: sha512-CzATjGXzUQ0EvuvgOCI6A4BGOo2bcVx8B+eC2nF862iv9fopnPQwlrbACakNCHRIJbCSBj+J/9JeDf60k64MkA==}
-    engines: {node: '>=12.13'}
-    dependencies:
-      is-what: 4.1.7
-    dev: true
 
   /copy-webpack-plugin/10.2.4_webpack@5.75.0:
     resolution: {integrity: sha512-xFVltahqlsRcyyJqQbDY6EYTtyQZF9rf+JPjwHObLdPFMEISqkFkr7mFoVOC6BfYS/dNThyoQKvziugm+OnwBg==}
@@ -6856,6 +6771,7 @@ packages:
   /extract-files/9.0.0:
     resolution: {integrity: sha512-CvdFfHkC95B4bBBk36hcEmvdR2awOdhhVUYH6S/zrVj3477zven/fJMYg7121h4T1xHZC+tetUpubpAhxwI7hQ==}
     engines: {node: ^10.17.0 || ^12.0.0 || >= 13.7.0}
+    dev: true
 
   /extract-zip/2.0.1_supports-color@8.1.1:
     resolution: {integrity: sha512-GDhU9ntwuKyGXdZBUgTIe+vXnWj0fppUEtMDL0+idd5Sta8TGpHssn/eusA9mrPr9qNDym6SxAYZjNvCn/9RBg==}
@@ -7093,6 +7009,7 @@ packages:
       asynckit: 0.4.0
       combined-stream: 1.0.8
       mime-types: 2.1.35
+    dev: true
 
   /form-data/4.0.0:
     resolution: {integrity: sha512-ETEklSGi5t0QMZuiXoA/Q6vcnxcLQP5vdugSpuAyi6SVGi2clPPp+xgEhuMaHC+zGgn31Kd235W35f7Hykkaww==}
@@ -7383,6 +7300,7 @@ packages:
       graphql: 16.6.0
     transitivePeerDependencies:
       - encoding
+    dev: true
 
   /graphql-tag/2.12.6_graphql@16.6.0:
     resolution: {integrity: sha512-FdSNcu2QQcWnM2VNvSCCDCVS5PpPqpzgFT8+GXzqJuoDd0CBncxCY278u4mhRO7tMgo2JjgJA5aZ+nWSQ/Z+xg==}
@@ -7401,6 +7319,7 @@ packages:
       graphql: '>=0.11 <=16'
     dependencies:
       graphql: 16.6.0
+    dev: true
 
   /graphql/16.6.0:
     resolution: {integrity: sha512-KPIBPDlW7NxrbT/eh4qPXz5FiFdL5UbaA0XUNz2Rp3Z3hqBSkbj0GVjwFDztsWVauZUWsbKHgMg++sk8UX0bkw==}
@@ -7997,11 +7916,6 @@ packages:
     dependencies:
       call-bind: 1.0.2
       get-intrinsic: 1.1.3
-    dev: true
-
-  /is-what/4.1.7:
-    resolution: {integrity: sha512-DBVOQNiPKnGMxRMLIYSwERAS5MVY1B7xYiGnpgctsOFvVDz9f9PFXXxMcTOHuoqYp4NK9qFYQaIC1NRRxLMpBQ==}
-    engines: {node: '>=12.13'}
     dev: true
 
   /is-windows/1.0.2:
@@ -8659,18 +8573,8 @@ packages:
       jotai: '*'
       react: '>=17.0.0'
     dependencies:
-      jotai: 1.9.2_3cl2w5oy7evzriedplg6neyczm
+      jotai: 1.9.2_uw5pfemy2xdwo2sp64avz7ue5u
       react: 18.2.0
-    dev: false
-
-  /jotai-tanstack-query/0.4.0_fsjgfd5s45ih6o6o3kregwfv4e:
-    resolution: {integrity: sha512-K3++3iIKGm34hyHm0i+8cMM7c2agDq/GdE7xJ2Asa+VwyEBQVRudfdGEv3HCYLp6smNcqWUxn7iQddue/DXe8g==}
-    peerDependencies:
-      '@tanstack/query-core': '*'
-      jotai: '*'
-    dependencies:
-      '@tanstack/query-core': 4.15.1
-      jotai: 1.9.2_3cl2w5oy7evzriedplg6neyczm
     dev: false
 
   /jotai-urql/0.3.0_ttgifyb7m23dszuaixncnoleyy:
@@ -8680,10 +8584,10 @@ packages:
       jotai: '*'
     dependencies:
       '@urql/core': 3.0.5_graphql@16.6.0
-      jotai: 1.9.2_3cl2w5oy7evzriedplg6neyczm
+      jotai: 1.9.2_uw5pfemy2xdwo2sp64avz7ue5u
     dev: false
 
-  /jotai/1.9.2_3cl2w5oy7evzriedplg6neyczm:
+  /jotai/1.9.2_uw5pfemy2xdwo2sp64avz7ue5u:
     resolution: {integrity: sha512-/893WrniZwoVc0+3JR056r0FTC/tGbgyHco9dfgde6K8TU6XNxrOSw4jCRdDicncw67A37v2GNGzXSpHKbHPmw==}
     engines: {node: '>=12.7.0'}
     peerDependencies:
@@ -8716,7 +8620,6 @@ packages:
     dependencies:
       '@babel/core': 7.20.2
       immer: 9.0.16
-      jotai-tanstack-query: 0.4.0_fsjgfd5s45ih6o6o3kregwfv4e
       jotai-urql: 0.3.0_ttgifyb7m23dszuaixncnoleyy
       react: 18.2.0
     dev: false
@@ -10652,10 +10555,6 @@ packages:
     resolution: {integrity: sha512-/62tYiOe6DzS5BqVsNpH/nkGlX45C/Sp6V+NtiN6JQNS1Viay7cWkazmRkrQrdFj2eshDe96SIQNIoMxqhzBOg==}
     dev: true
 
-  /remove-accents/0.4.2:
-    resolution: {integrity: sha1-CkPTqq4egNuRngeuJUsoXZ4ce7U=}
-    dev: true
-
   /remove-trailing-separator/1.1.0:
     resolution: {integrity: sha512-/hS+Y0u3aOfIETiaiirUFwDBDzmXPvO+jAfKTitUngIPzdKc6Z0LoFjM/CK5PL4C+eKwHohlHAb6H0VFfmmUsw==}
     dev: true
@@ -11405,13 +11304,6 @@ packages:
     transitivePeerDependencies:
       - supports-color
 
-  /superjson/1.11.0:
-    resolution: {integrity: sha512-6PfAg1FKhqkwWvPb2uXhH4MkMttdc17eJ91+Aoz4s1XUEDZFmLfFx/xVA3wgkPxAGy5dpozgGdK6V/n20Wj9yg==}
-    engines: {node: '>=10'}
-    dependencies:
-      copy-anything: 3.0.2
-    dev: true
-
   /supports-color/5.5.0:
     resolution: {integrity: sha512-QjVjwdXIt408MIiAqCX4oUKsgU2EqAGzs2Ppkm4aQYbjm+ZEWEcW4SfFNTr4uMNZma0ey4f5lgLrkB0aX0QMow==}
     engines: {node: '>=4'}
@@ -11969,6 +11861,7 @@ packages:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:
       react: 18.2.0
+    dev: false
 
   /util-deprecate/1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
