@@ -15,7 +15,7 @@ export const loginAtom = atom(null, async (get, set) => {
   });
   const session = await nhost.auth.getSession();
   set(authIsLoadingAtom, RESET);
-  set(nhostSessionAtom, session || undefined);
+  set(nhostSessionAtom, session ? session : undefined);
 });
 
 export const signoutAtom = atom(null, async (get, set) => {
@@ -24,7 +24,7 @@ export const signoutAtom = atom(null, async (get, set) => {
   await nhost.auth.signOut();
   const session = await nhost.auth.getSession();
   set(authIsLoadingAtom, RESET);
-  set(nhostSessionAtom, session || undefined);
+  set(nhostSessionAtom, session ? session : undefined);
 });
 
 export const userAtom = atom((get) => get(nhostSessionAtom)?.user);
