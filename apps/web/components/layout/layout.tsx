@@ -19,8 +19,8 @@ export const Layout: FC<LayoutProps> = ({ children }) => {
             </Link>
           </li>
           <li>
-            <Link href="/projects/12" shallow>
-              Project: 12
+            <Link href="/projects/de50764d-1352-4b9b-a016-6a70d91dc57b" shallow>
+              Project: de50764d-1352-4b9b-a016-6a70d91dc57b
             </Link>
           </li>
         </ul>

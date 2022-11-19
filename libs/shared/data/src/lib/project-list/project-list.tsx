@@ -1,9 +1,11 @@
 // import { useAtomValue } from 'jotai';
-import { useAtomValue } from 'jotai';
+import { atom, useAtomValue } from 'jotai';
 import { atomsWithQuery } from 'jotai-urql';
 import { loadable } from 'jotai/utils';
 import { ProjectListDocument } from '../gql/graphql';
 import { urqlClientAtom } from '../urql';
+import { atomFromAtomValueOrPromise } from '../utils/atomFromAtomOrPromise';
+import { atomWithPromise } from '../utils/atomWithPromise';
 
 // import { loadable, useHydrateAtoms } from 'jotai/utils';
 
@@ -24,6 +26,8 @@ export const projectIdAtom = atomWithUrlParam({
   key: 'projectId',
 });
 
+export const projectIdPromiseAtom = atomFromAtomValueOrPromise(projectIdAtom);
+
 export function ProjectList(props: ProjectListProps) {
   // useHydrateAtoms([[countAtom, countFromServer]]);
   const result = useAtomValue(loadable(projectsListAtom));
@@ -41,7 +45,6 @@ export function ProjectList(props: ProjectListProps) {
   return (
     <div className="border-2 m-2 p-2">
       <h1>Projects</h1>
-      <h2>Project Id</h2>
       {data ? (
         <ul>
           {data.projects.map((project) => {

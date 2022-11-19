@@ -1,7 +1,15 @@
-import { getSSRClient, projectIdAtom, ssrCache } from '@mmmoli/shared/data';
+import {
+  getSSRClient,
+  projectDetailAtom,
+  ProjectDetailDocument,
+  ProjectDetailView,
+  projectIdAtom,
+  projectIdPromiseAtom,
+  ssrCache,
+} from '@mmmoli/shared/data';
 import { getNhostSession, NhostSession } from '@nhost/nextjs';
 import Layout from '../../components/layout/layout';
-import { useHydrateAtoms } from 'jotai/utils';
+import { loadable, useAtomValue, useHydrateAtoms } from 'jotai/utils';
 
 import { GetServerSideProps } from 'next';
 import { InferGetServerSidePropsType } from 'next';
@@ -14,11 +22,21 @@ export default function ProjectDetailPage({
   projectId,
 }: ProjectDetailPageProps) {
   useHydrateAtoms([[projectIdAtom, projectId]]);
+  // const result = useAtomValue(loadable(projectDetailAtom));
+
+  // if (result.state === 'loading') {
+  //   return <div>…</div>;
+  // }
+
+  // if (result.state === 'hasError') {
+  //   return <pre>{JSON.stringify(result.error)}</pre>;
+  // }
+
+  // const data = result.data.project;
 
   return (
     <Layout>
-      <h1>Project Detail</h1>
-      <pre>{JSON.stringify(projectId)}</pre>
+      <ProjectDetailView />
     </Layout>
   );
 }
@@ -42,7 +60,12 @@ export const getServerSideProps: GetServerSideProps<
 
   if (nhostSession) {
     const urqlClient = getSSRClient(nhostSession);
-    Promise.all([]);
+    await Promise.all([
+      urqlClient
+        .query(ProjectDetailDocument, { id: context.params.projectId })
+        .toPromise()
+        .catch(console.error),
+    ]);
   }
 
   return {

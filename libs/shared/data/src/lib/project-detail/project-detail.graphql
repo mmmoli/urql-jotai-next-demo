@@ -1,0 +1,7 @@
+query projectDetail($id: uuid!) {
+  project: projects_by_pk(id: $id) {
+    id
+    name
+    __typename
+  }
+}
