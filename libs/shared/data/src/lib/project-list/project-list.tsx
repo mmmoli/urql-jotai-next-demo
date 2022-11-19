@@ -35,12 +35,13 @@ export function ProjectList(props: ProjectListProps) {
     return <pre>{JSON.stringify(result.error)}</pre>;
   }
 
+  const data = result.data;
+
   return (
     <div className="border-2 m-2 p-2">
       <h1>Projects</h1>
       <h2>Project Id</h2>
-      <pre>{JSON.stringify(result.data)}</pre>
-      {/* {data ? (
+      {data ? (
         <ul>
           {data.projects.map((project) => {
             return <li key={`project-${project.id}`}>{project.name}</li>;
@@ -48,7 +49,7 @@ export function ProjectList(props: ProjectListProps) {
         </ul>
       ) : (
         <div>No Data</div>
-      )} */}
+      )}
     </div>
   );
 }

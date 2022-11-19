@@ -43,10 +43,12 @@ export const getServerSideProps: GetServerSideProps<
 
   if (nhostSession) {
     const urqlClient = getSSRClient(nhostSession);
-    await urqlClient
-      .query(ProjectListDocument, undefined)
-      .toPromise()
-      .catch(console.error);
+    Promise.all([
+      urqlClient
+        .query(ProjectListDocument, undefined)
+        .toPromise()
+        .catch(console.error),
+    ]);
   }
 
   return {
