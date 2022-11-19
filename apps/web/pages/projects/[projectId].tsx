@@ -1,18 +1,14 @@
 import {
-  getSSRClient,
-  projectDetailAtom,
   ProjectDetailDocument,
   ProjectDetailView,
   projectIdAtom,
-  projectIdPromiseAtom,
-  ssrCache,
 } from '@mmmoli/shared/data';
-import { getNhostSession, NhostSession } from '@nhost/nextjs';
+import { NhostSession } from '@nhost/nextjs';
 import Layout from '../../components/layout/layout';
-import { loadable, useAtomValue, useHydrateAtoms } from 'jotai/utils';
-
+import { useHydrateAtoms } from 'jotai/utils';
 import { GetServerSideProps } from 'next';
 import { InferGetServerSidePropsType } from 'next';
+import { prefetch } from '../../helpers/prefetch';
 
 type ProjectDetailPageProps = InferGetServerSidePropsType<
   typeof getServerSideProps
@@ -22,17 +18,6 @@ export default function ProjectDetailPage({
   projectId,
 }: ProjectDetailPageProps) {
   useHydrateAtoms([[projectIdAtom, projectId]]);
-  // const result = useAtomValue(loadable(projectDetailAtom));
-
-  // if (result.state === 'loading') {
-  //   return <div>…</div>;
-  // }
-
-  // if (result.state === 'hasError') {
-  //   return <pre>{JSON.stringify(result.error)}</pre>;
-  // }
-
-  // const data = result.data.project;
 
   return (
     <Layout>
@@ -40,8 +25,6 @@ export default function ProjectDetailPage({
     </Layout>
   );
 }
-
-const BACKEND_URL = 'https://nxlppvxwouvddpyfntil.nhost.run/';
 
 type ServersideProps = {
   nhostSession: NhostSession;
@@ -56,22 +39,16 @@ export const getServerSideProps: GetServerSideProps<
   ServersideProps,
   Params
 > = async (context) => {
-  const nhostSession = await getNhostSession(BACKEND_URL, context);
-
-  if (nhostSession) {
-    const urqlClient = getSSRClient(nhostSession);
-    await Promise.all([
-      urqlClient
-        .query(ProjectDetailDocument, { id: context.params.projectId })
-        .toPromise()
-        .catch(console.error),
-    ]);
-  }
+  const prefetchResult = await prefetch(context, (client) => [
+    client
+      .query(ProjectDetailDocument, { id: context.params.projectId })
+      .toPromise()
+      .catch(console.error),
+  ]);
 
   return {
     props: {
-      nhostSession,
-      urqlState: ssrCache.extractData(),
+      ...prefetchResult.props,
       projectId: context.params.projectId,
     },
   };

@@ -1,14 +1,10 @@
-import { getNhostSession, NhostSession } from '@nhost/nextjs';
+import { NhostSession } from '@nhost/nextjs';
 import { GetServerSideProps, NextPage } from 'next';
 import { InferGetServerSidePropsType } from 'next';
-import {
-  getSSRClient,
-  ProjectList,
-  ProjectListDocument,
-  ssrCache,
-} from '@mmmoli/shared/data';
+import { ProjectList, ProjectListDocument } from '@mmmoli/shared/data';
 import Layout from '../components/layout/layout';
 import { SSRData } from 'next-urql';
+import { prefetch } from '../helpers/prefetch';
 
 type ProjectListPageProps = InferGetServerSidePropsType<
   typeof getServerSideProps
@@ -28,34 +24,17 @@ type ServersideProps = {
   nhostSession?: NhostSession;
 };
 
-type Params = {
-  projectId: string;
-};
+export const getServerSideProps: GetServerSideProps<ServersideProps> = async (
+  context
+) => {
+  const prefetchResult = await prefetch(context, (client) => [
+    client
+      .query(ProjectListDocument, undefined)
+      .toPromise()
+      .catch(console.error),
+  ]);
 
-const BACKEND_URL = 'https://nxlppvxwouvddpyfntil.nhost.run/';
-
-export const getServerSideProps: GetServerSideProps<
-  ServersideProps,
-  Params
-> = async (context) => {
-  const nhostSession = await getNhostSession(BACKEND_URL, context);
-
-  if (nhostSession) {
-    const urqlClient = getSSRClient(nhostSession);
-    await Promise.all([
-      urqlClient
-        .query(ProjectListDocument, undefined)
-        .toPromise()
-        .catch(console.error),
-    ]);
-  }
-
-  return {
-    props: {
-      nhostSession,
-      urqlState: ssrCache.extractData(),
-    },
-  };
+  return prefetchResult;
 };
 
 export default ProjectListPage;
