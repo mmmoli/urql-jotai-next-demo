@@ -16,6 +16,7 @@ export default function MyApp({ Component, pageProps }: AppProps<PageProps>) {
   if (pageProps.urqlState) {
     ssrCache.restoreData(pageProps.urqlState);
   }
+
   return (
     <Provider nhostSession={pageProps.nhostSession}>
       <Head>

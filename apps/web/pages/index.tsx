@@ -2,10 +2,10 @@ import { getNhostSession, NhostSession } from '@nhost/nextjs';
 import { GetServerSideProps, NextPage } from 'next';
 import { InferGetServerSidePropsType } from 'next';
 import {
+  getSSRClient,
   ProjectList,
   ProjectListDocument,
   ssrCache,
-  urqlClient,
 } from '@mmmoli/shared/data';
 import Layout from '../components/layout/layout';
 import { SSRData } from 'next-urql';
@@ -18,14 +18,14 @@ const ProjectListPage: NextPage<ProjectListPageProps> = ({ nhostSession }) => {
   return (
     <Layout>
       <h1>Projects</h1>
-      <pre>{JSON.stringify(nhostSession, undefined, 2)}</pre>
       <ProjectList />
+      <pre>{JSON.stringify(nhostSession, undefined, 2)}</pre>
     </Layout>
   );
 };
 
 type ServersideProps = {
-  dehydratedState?: SSRData;
+  urqlState?: SSRData;
   nhostSession?: NhostSession;
 };
 
@@ -41,15 +41,18 @@ export const getServerSideProps: GetServerSideProps<
 > = async (context) => {
   const nhostSession = await getNhostSession(BACKEND_URL, context);
 
-  // await urqlClient
-  //   .query(ProjectListDocument, undefined)
-  //   .toPromise()
-  //   .catch(console.log);
+  if (nhostSession) {
+    const urqlClient = getSSRClient(nhostSession);
+    await urqlClient
+      .query(ProjectListDocument, undefined)
+      .toPromise()
+      .catch(console.error);
+  }
 
   return {
     props: {
       nhostSession,
-      // dehydratedState: ssrCache.extractData(),
+      urqlState: ssrCache.extractData(),
     },
   };
 };

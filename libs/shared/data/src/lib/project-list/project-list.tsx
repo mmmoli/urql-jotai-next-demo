@@ -3,7 +3,7 @@ import { useAtomValue } from 'jotai';
 import { atomsWithQuery } from 'jotai-urql';
 import { loadable } from 'jotai/utils';
 import { ProjectListDocument } from '../gql/graphql';
-import { getBrowserClient } from '../urql';
+import { urqlClientAtom } from '../urql';
 
 // import { loadable, useHydrateAtoms } from 'jotai/utils';
 
@@ -13,7 +13,7 @@ const [projectsListAtom] = atomsWithQuery(
   ProjectListDocument,
   () => ({}),
   undefined,
-  getBrowserClient
+  (get) => get(urqlClientAtom)
 );
 
 /* eslint-disable-next-line */
